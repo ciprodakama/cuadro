@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 class MyCustomPainter extends CustomPainter {
   MyCustomPainter({this.pointsList});
   List<TouchPoints> pointsList;
-  List<Offset> offsetPoints = List();
+  List<Offset> offsetPoints = [];
 
   //This is where we can draw on canvas.
   @override

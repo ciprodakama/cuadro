@@ -28,6 +28,15 @@ dependencies:
   flutter_simple_dependency_injection: ^1.0.1
   provider: ^5.0.0
   socket_io_client: ^0.9.12
+  scroll_loop_auto_scroll: ^0.0.2
+  firebase_core: ^2.1.0
+  google_sign_in: ^5.4.2
+  firebase_auth: ^4.0.2
+  flutter_signin_button: ^2.0.0
+  shake: ^2.1.0
+
+firebase:
+    path: ../packages/firebase
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +58,8 @@ flutter:
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
+  assets:
+    - assets/images/icon2.png
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

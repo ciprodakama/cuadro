@@ -7,8 +7,8 @@ class JoinRoomScreen extends StatefulWidget {
 }
 
 class _JoinRoomScreenState extends State<JoinRoomScreen> {
-  final TextEditingController roomController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController roomController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,10 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
         children: [
           Text(
             "Join Room",
-            style: TextStyle(color: Colors.black, fontSize: 30),
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 30,
+            ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.08),
           Container(
@@ -75,12 +78,15 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
             onPressed: () {
               if (nameController.text.isNotEmpty &&
                   roomController.text.isNotEmpty) {
-                Map data = {
+                Map<String, String> data = {
                   "nickname": nameController.text,
                   "name": roomController.text,
                 };
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => PaintScreen(data: data, screenFrom: "joinRoom",)));
+                    builder: (context) => PaintScreen(
+                          data: data,
+                          screenFrom: "joinRoom",
+                        )));
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

@@ -6,7 +6,9 @@ import 'package:cuadro/screens/home_screen.dart';
 import 'package:cuadro/sidebar/player_score_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class PaintScreen extends StatefulWidget {
@@ -18,34 +20,56 @@ class PaintScreen extends StatefulWidget {
 }
 
 class _PaintScreenState extends State<PaintScreen> {
-  GlobalKey globalKey = GlobalKey();
-  List<TouchPoints> points = [];
-  double opacity = 1.0;
-  StrokeCap strokeType = StrokeCap.round;
-  Color selectedColor;
-  double strokeWidth;
+  /*
+  _PaintScreenState() {
+    dataOfRoom = _initData;
+  }
+
+  Map _initData = {
+    "nickname": "",
+    "name": "",
+    "occupancy": "",
+    "maxRounds": ""
+  };
+  */
   IO.Socket socket;
   Map dataOfRoom;
+  List<TouchPoints> points = [];
+  StrokeCap strokeType = StrokeCap.round;
+  Color selectedColor = Colors.black;
+  double opacity = 1.0;
+  double strokeWidth = 2;
   List<Widget> textBlankWidget = [];
-  List<Map> messages = [];
-  List<Map> scoreboard = [];
-  TextEditingController textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  var focusNode = FocusNode();
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  bool isTextInputReadOnly = false;
-
-  Timer _timer;
-  int _start = 60;
-  int roundTime = 60;
+  TextEditingController textEditingController = TextEditingController();
+  List<Map> messages = [];
   int guessedUserCtr = 0;
-  bool isShowFinalLeaderboard = false;
-  String winner;
+  int _start = 60;
+  Timer _timer;
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  List<Map> scoreboard = [];
+  bool isTextInputReadOnly = false;
   int maxPoints = 0;
+  String winner;
+  bool isShowFinalLeaderboard = false;
+
+  var focusNode = FocusNode();
+  int roundTime = 60;
+
+  //GlobalKey globalKey = GlobalKey();
+  //GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
 
   // round time -> 30 sec
   // waiting -> until room.players === room.occupancy
   // select word -> 10 sec
+
+  @override
+  void initState() {
+    super.initState();
+    connect();
+    //selectedColor = Colors.black;
+    //strokeWidth = 2.0;
+  }
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -67,12 +91,12 @@ class _PaintScreenState extends State<PaintScreen> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    connect();
-    selectedColor = Colors.black;
-    strokeWidth = 2.0;
+  void scrollDown() {
+    final double end = _scrollController.position.maxScrollExtent;
+
+    _scrollController.jumpTo(end);
+    //_scrollController.animateTo(end,
+    //duration: const Duration(seconds: 1), curve: Curves.easeIn);
   }
 
   void renderTextBlank(String text) {
@@ -86,7 +110,7 @@ class _PaintScreenState extends State<PaintScreen> {
   }
 
   void connect() {
-    socket = IO.io("http://<yourip>:3000", <String, dynamic>{
+    socket = IO.io("http://IP:3000", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false,
     });
@@ -99,7 +123,7 @@ class _PaintScreenState extends State<PaintScreen> {
       socket.emit("join-game", widget.data);
     }
     socket.onConnect((data) {
-      print("connected");
+      print("connected 1111111111111111111111");
       socket.on("updateRoom", (roomData) {
         setState(() {
           renderTextBlank(roomData["word"]);
@@ -141,6 +165,28 @@ class _PaintScreenState extends State<PaintScreen> {
               (route) => false));
 
       // getting the painting on the screen
+      /*
+      socket.on("points", (point) {
+        if (point["details"] != null) {
+          setState(() {
+            points.add(
+              TouchPoints(
+                  points: Offset((point["details"]["dx"]).toDouble(),
+                      (point["details"]["dy"]).toDouble()),
+                  paint: Paint()
+                    ..strokeCap = strokeType
+                    ..isAntiAlias = true
+                    ..color = selectedColor.withOpacity(opacity)
+                    ..strokeWidth = strokeWidth),
+            );
+          });
+        } else {
+          setState(() {
+            points.add(null);
+      });
+      */
+
+      // getting the painting on the screen
       socket.on("points", (point) {
         if (point["details"] != null) {
           setState(() {
@@ -174,7 +220,7 @@ class _PaintScreenState extends State<PaintScreen> {
         print("HEY CHANGE TURN PAINT SCREEN");
         String oldeWord = dataOfRoom["word"];
         showDialog(
-            context: scaffoldKey.currentContext,
+            context: context,
             barrierDismissible: true,
             builder: (newContext) {
               Future.delayed(Duration(seconds: 3), () {
@@ -187,7 +233,7 @@ class _PaintScreenState extends State<PaintScreen> {
                   points.clear();
                 });
                 // cancelling the before timer
-                Navigator.of(scaffoldKey.currentContext).pop(true);
+                Navigator.of(context).pop(true);
                 _timer.cancel();
                 startTimer();
               });
@@ -238,11 +284,12 @@ class _PaintScreenState extends State<PaintScreen> {
       });
 
       // changing stroke width of pen
-      socket.on(
-          "stroke-width",
-          (stroke) => this.setState(() {
-                strokeWidth = stroke.toDouble();
-              }));
+      socket.on('stroke-width', (value) {
+        print(value);
+        setState(() {
+          strokeWidth = value.toDouble();
+        });
+      });
 
       // changing the color of pen
       socket.on("color-change", (colorString) {
@@ -254,11 +301,11 @@ class _PaintScreenState extends State<PaintScreen> {
       });
 
       // clearing off the screen with clean button
-      socket.on(
-          "clear-screen",
-          (data) => this.setState(() {
-                points.clear();
-              }));
+      socket.on('clear-screen', (data) {
+        setState(() {
+          points.clear();
+        });
+      });
 
       socket.on("user-disconnected", (data) {
         scoreboard.clear();
@@ -374,7 +421,7 @@ class _PaintScreenState extends State<PaintScreen> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20.0)),
                                     child: RepaintBoundary(
-                                      key: globalKey,
+                                      //key: globalKey,
                                       child: CustomPaint(
                                         size: Size.infinite,
                                         painter:
@@ -399,15 +446,18 @@ class _PaintScreenState extends State<PaintScreen> {
                                           }),
                                       Expanded(
                                         child: Slider(
-                                          min: 1.0,
-                                          max: 10.0,
-                                          label: "Stroke $strokeWidth",
-                                          activeColor: selectedColor,
-                                          value: strokeWidth,
-                                          onChanged: (double value) {
-                                            socket.emit("stroke-width", value);
-                                          },
-                                        ),
+                                            min: 1.0,
+                                            max: 10,
+                                            label: "Strokewidth $strokeWidth",
+                                            activeColor: selectedColor,
+                                            value: strokeWidth,
+                                            onChanged: (double value) {
+                                              Map map = {
+                                                'value': value,
+                                                'roomName': dataOfRoom['name']
+                                              };
+                                              socket.emit('stroke-width', map);
+                                            }),
                                       ),
                                       IconButton(
                                           icon: Icon(
@@ -446,10 +496,14 @@ class _PaintScreenState extends State<PaintScreen> {
                               child: ListView.builder(
                                   controller: _scrollController,
                                   shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
                                   // primary: true,
                                   itemCount: messages.length,
                                   itemBuilder: (context, index) {
                                     var msg = messages[index].values;
+                                    if (messages.length > 2) {
+                                      scrollDown();
+                                    }
                                     return ListTile(
                                       title: Text(
                                         msg.elementAt(0),
@@ -531,7 +585,7 @@ class _PaintScreenState extends State<PaintScreen> {
                               color: Colors.black,
                             ),
                             onPressed: () =>
-                                scaffoldKey.currentState.openDrawer(),
+                                scaffoldKey.currentState?.openDrawer(),
                           ),
                         ),
                       ],
