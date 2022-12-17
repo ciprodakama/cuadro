@@ -2,6 +2,8 @@
 # Cuadro
 
 A Cross Platform - Web, Android & iOS App multiplayer doodling & guessing game.
+# Login Page
+<img src="https://github.com/ciprodakama/cuadro/blob/master/screenshots/samples/LoginPage.png" width="200" /> 
 
 I have started from the fork of the original project and tried making some improvements to the UI and UX, whilst reviewing functionalities and performance
 Specifically I have enabled User Login, using Firebase. I have also modified the landing page and the aesthetics (App Icon, Fonts, Animations, etc).
@@ -41,14 +43,9 @@ Specifically I have enabled User Login, using Firebase. I have also modified the
 ## Screenshots
 
 ### Samples
-<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/LoginPage.png" width="200" />
-<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/MainScreen.png" width="200" />
-<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/CreateRoomScreen.png" width="200" />
-<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/JoinRoomScreen.png" width="200" />
-<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/WaitingLobbyScreen.png" width="200" />
-<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/DrawerTurn.png" width="200" />
-<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/RoundComplete.png" width="200" />
-<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/ScoreBoard.png" width="200" />
+<img src="https://github.com/ciprodakama/cuadro/blob/master/screenshots/samples/MainScreen.png" width="200"/> <img src="https://github.com/ciprodakama/cuadro/blob/master/screenshots/samples/CreateRoomScreen.png" width="200" /> <img src="https://github.com/ciprodakama/cuadro/blob/master/screenshots/samples/WaitingLobbyScreen.png" width="200" />
+
+<img src="https://github.com/ciprodakama/cuadro/blob/master/screenshots/samples/DrawerTurn.png" width="200" /> <img src="https://github.com/ciprodakama/cuadro/blob/master/screenshots/samples/RoundComplete.png" width="200" /> <img src="https://github.com/ciprodakama/cuadro/blob/master/screenshots/samples/ScoreBoard.png" width="200" />
 
   
 ## Environment Variables
