@@ -3,16 +3,22 @@
 
 A Cross Platform - Web, Android & iOS App multiplayer doodling & guessing game.
 
+I have started from the fork of the original project and tried making some improvements to the UI and UX, whilst reviewing functionalities and performance
+Specifically I have enabled User Login, using Firebase. I have also modified the landing page and the aesthetics (App Icon, Fonts, Animations, etc).
+
 
 ## Tech Stack
 
-**Client:** Flutter, socket_io_client
+**Client:** Flutter, socket_io_client, Firebase
 
 **Server:** Node, Express, Socket.io, Mongoose
 
   
 ## Features
-
+- Custom Logo and Animations
+- Custom Fonts
+- Social Login with Google
+- Anonymous Login with Firebase
 - Creating Room
 - Joining Room
 - Waiting Lobby
@@ -20,6 +26,7 @@ A Cross Platform - Web, Android & iOS App multiplayer doodling & guessing game.
     - Changing Width of Pen
     - Changing Colour of Pen
     - Clearing off the Screen
+    - Clearing off the Screen with Phone Shake (sensors)
     - Drawing
 - Generating Random Words
 - Chatting In Room
@@ -33,17 +40,15 @@ A Cross Platform - Web, Android & iOS App multiplayer doodling & guessing game.
   
 ## Screenshots
 
-### Mobile
-<img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/iphone/MainScreen.png" width="200" />  <img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/iphone/CreateRoomScreen.png" width="200" />  <img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/iphone/JoinRoomScreen.png" width="200" />  <img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/iphone/WaitingLobbyScreen.png" width="200" />  <img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/iphone/DrawerTurn.png" width="200" />  <img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/iphone/RoundComplete.png" width="200" />  <img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/iphone/ScoreBoard.png" width="200" />
-
-
-### Web
-<img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/web/MainScreen.png"/>
-<img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/web/CreateRoomScreen.png"/>
-<img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/web/JoinRoomScreen.png"/>
-<img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/web/WaitingLobbyScreen.png"/>
-<img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/web/WordGuessScreen.png"/>
-<img src="https://github.com/RivaanRanawat/cuadro/blob/master/screenshots/web/ScoreBoard.png"/>
+### Samples
+<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/LoginPage.png" width="200" />
+<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/MainScreen.png" width="200" />
+<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/CreateRoomScreen.png" width="200" />
+<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/JoinRoomScreen.png" width="200" />
+<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/WaitingLobbyScreen.png" width="200" />
+<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/DrawerTurn.png" width="200" />
+<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/RoundComplete.png" width="200" />
+<img src="https://github.com/ciprodakama/cuadro/tree/master/screenshots/samples/ScoreBoard.png" width="200" />
 
   
 ## Environment Variables
@@ -60,7 +65,7 @@ Make sure to replace <yourip> in `lib/screens/paint_screen.dart` with your IP ad
 Clone the project
 
 ```bash
-  git clone https://github.com/RivaanRanawat/cuadro
+  git clone https://github.com/ciprodakama/cuadro
 ```
 
 Go to the project directory
